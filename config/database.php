@@ -15,9 +15,9 @@ return [
     // 服务器地址
     'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => 'tour',
+    'database'        => 'video',
     // 用户名
-    'username'        => 'tour',
+    'username'        => 'video',
     // 密码
     'password'        => 'guoqu123',
     // 端口
