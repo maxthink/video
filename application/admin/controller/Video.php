@@ -27,7 +27,15 @@ class Video extends Common
             $page = input('page',1,'intval');
             $limit = input('limit',10,'intval');
             
-            $list = SM::page($page,$limit);
+            $name = input('s1','');
+             
+
+            $where[]= "1=1";
+            if( $name ){
+                $where[]= "name like '%".$name.'%\'';
+            }
+    
+            $list = $this->model->list_admin($page,$limit,$where);
 
             return apiJson($list);
             
@@ -47,13 +55,9 @@ class Video extends Common
             
             $params = input('post.');
 
-            
             $M = new SM();
-            $M->title = $params['title'];
-            $M->cover = $params['cover'];
-            $M->resource = $params['resource'];
             
-            if ( $M->save() ) {
+            if ( $M->save($params) ) {
                 return apiJson('', 0, '添加成功');
             } else {
                 return apiJson('', 1, '添加出错');
@@ -74,20 +78,9 @@ class Video extends Common
 
             $params = input('post.');
 
-            //验证规则
-            //$result = $this->validate($params, 'app\admin\validate\Admin.edit');
-            //if ($result !== true) {
-            //    return ['status' => 0, 'msg' => $result, 'url' => ''];
-            //}
-
             $M = SM::get($params['id']);
-            $M->name = $params['name'];
-            $M->type = $params['type'];
-            $M->sum = $params['sum'];
-            $M->long = $params['long']*60; //页面显示分钟, 实际保存秒数
-            $M->price = $params['price']*100;  
             
-            if ( $M->save() ) {
+            if ( $M->save($params) ) {
                 return apiJson('',0,'修改成功');
             } else {
                 return apiJson('',1,'修改失败');
@@ -97,8 +90,6 @@ class Video extends Common
         }
     }
     
-    
-
     /**
      * 删除信息
      */
