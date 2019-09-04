@@ -15,7 +15,7 @@
     <div class="layui-header">
         <div class="layui-logo">
             <img src="/static/admin/images/logo.png"/>
-            <cite>&nbsp;新疆旅行社&emsp;</cite>
+            <cite>&nbsp;{$Think.config.app.app_name}&emsp;</cite>
         </div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item" lay-unselect>
