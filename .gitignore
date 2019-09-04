@@ -1,5 +1,5 @@
 #database config
-database.php
+config/database.php
 Thumbs.db
 
 runtime
