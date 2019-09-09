@@ -1,5 +1,6 @@
 <?php
 set_time_limit(0);
+
 require '../../vendor/autoload.php';
 
 use QL\QueryList;
@@ -68,7 +69,8 @@ foreach($page_lists as $list_url){
         'actor'=>['.play-txt>.actor','text'],
         'cover'=>['.play-img>img','src'],
         'type'=>['.fn-left>a','text'],
-        'url'=>['.play-img','href']
+        'url'=>['.play-img','href'],
+        'intro'=>['.detail-desc-cnt>p','text']
     ];
     $range = '.show-list>li';
     $dom = QueryList::html($html)->rules($rule)->range($range)->queryData();
@@ -100,9 +102,9 @@ foreach($detail as $k=>$unit )
     $html = geturl( $unit['url'].'play-'.$sid.'-0-1.js' );
     
     $unit['res_js']= substr( str_replace('var ff_urls=\'', '', $html),0,-2);
-    //print_r($unit);die;
-    $detail[$k]=$unit;
     
+    $detail[$k]=$unit;
+    //break;
 }
 print_r($detail);
 
@@ -119,13 +121,13 @@ if($mysqli->connect_error){
 $mysqli->set_charset('UTF-8'); // 设置数据库字符集
 //$mysqli->autocommit(FALSE);
 
-$stmt = $mysqli->prepare('insert h_video (`res_id`,`name`,`cover`,`actor`,`type`,`url`,`res_js`,`md5`) values (?,?,?,?,?,?,?,?)');
+$stmt = $mysqli->prepare('insert h_res_juji (`res_id`,`name`,`cover`,`actor`,`type`,`url`,`res_js`,`md5`,`intro`) values (?,?,?,?,?,?,?,?,?)');
 
-$stmt->bind_param('isssssss',$res_id,$name,$cover,$actor,$type,$url,$res_js,$md5);
+$stmt->bind_param('issssssss',$res_id,$name,$cover,$actor,$type,$url,$res_js,$md5,$intro);
 
 foreach($detail as $video){
     if(!isset($video['res_id'])) continue;
-    $k = 'select res_id from h_video where res_id = '.$video['res_id'];
+    $k = 'select res_id from h_res_juji where res_id = '.$video['res_id'];
     $res = $mysqli->query($k);
     $res = mysqli_fetch_row($res);
     
@@ -138,10 +140,11 @@ foreach($detail as $video){
     $type = $video['type'];
     $url = $video['url'];
     $res_js = $video['res_js'];
-    $md5 = md5($video['res_js']);
+    $md5 = md5($video['res_js']); //去除头尾后的md5
+    $intro = $video['intro'];
     
     $stmt->execute();
-
+    //die;
 }
 //$mysqli->query('commit');
 $stmt->close();
