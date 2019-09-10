@@ -214,7 +214,7 @@ function has_auth_by_route($route = '') {
  * @param string $roleid   2,4 2 1,2,4 8  1,4,8  等可以数组化的格式
  */
 function get_power_by_uid($roleid) {
-    if( false !== strpos(',',$roleid)){
+    if( false !== strpos(strval($roleid),',')){
         $list = think\Db::name('role')->field('power')->where( 'id in ('.$roleid.')' )->select();
         $power = '';
         foreach($list as $_power['power'] ) {
@@ -253,7 +253,7 @@ if(!function_exists("array_columndd"))
 function getMenuByRid($roleid=0)
 {
     //todo 找出权限集合. 2,4 2 1,2,4 8  1,4,8  带点,不带点,  就分两种方式获取菜单了
-    if( false !== strpos(',',$roleid)){
+    if( false !== strpos(strval($roleid), ',' )){
         $list = think\Db::name('role')->field('power')->where( 'id in ('.$roleid.')' )->select();
         $power = '';
         foreach($list as $_power['power'] ) {
