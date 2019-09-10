@@ -9,11 +9,9 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('think', function () {
-    return 'hello,maxthink';
-});
+return [
 
-Route::rule('view/:id', 'index/index/view')->pattern(['id' => '\d+'])->name('home_view');
-Route::rule('list_page_:id', 'index/index/index')->pattern(['id' => '\d+'])->name('home_list');
-
-return [];
+    // 数据库表前缀
+    'prefix'          => 'bg_',
+   
+];

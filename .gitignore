@@ -4,3 +4,4 @@ Thumbs.db
 
 runtime
 *.swp
+/nbproject/private/
