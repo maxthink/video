@@ -43,7 +43,7 @@ class Index extends Controller
         if( false !== Cache::get($cache_name) )
         {
             $res = Cache::get($cache_name);
-            var_dump( json_decode($res['res_js'],true));
+            //var_dump( json_decode($res['res_js'],true));
             $this->assign('res', $res);
             return $this->fetch();
         } else {
