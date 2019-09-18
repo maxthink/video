@@ -98,8 +98,8 @@ foreach($page_lists as $list_url){
     $detail = [];
     //break;
     echo '<br/>2 page_list get detail, memory use end : '. memory_get_usage();
-    //$ii++;
-    //if($ii>50) break;
+    $ii++;
+    if($ii>50) break;
 }
 
 function insertdb($detail){
@@ -185,8 +185,8 @@ class db{
 
         self::$mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
         if(self::$mysqli->connect_error){
-                log('connect error:'.$mysqli->connect_errno);
-                die( 'connect error:'.$mysqli->connect_errno);
+                //log('connect error:'.self::$mysqli->connect_errno);
+                die( 'connect error:'.self::$mysqli->connect_errno);
         }
         self::$mysqli->set_charset('UTF-8'); // 设置数据库字符集
         //var_dump(self::$mysqli);die;
@@ -208,6 +208,9 @@ class db{
     {
         global $dbtable;
         $result = self::$mysqli->query('select res_id, md5 from '.$dbtable.' where res_id='.$res_id);
+        if(false==$result){
+            return 0;
+        }
         $result = mysqli_fetch_assoc($result);
         if($result){
             if($result['md5'] != $res_md5 ){
@@ -243,9 +246,15 @@ class db{
         }
         //echo 'insert into '.$dbtable.' set '. implode(',', $sql) ;
         if(count($sql)>0){
-            $re = self::$mysqli->query( 'insert into '.$dbtable.' set '. implode(',', $sql) );
-            if(false==$re){
-                echo '<br> 添加错误  insert into '.$dbtable.' set '. implode(',', $sql) ;
+            try{
+                $re = self::$mysqli->query( 'insert into '.$dbtable.' set '. implode(',', $sql) );
+                if(false==$re){
+                   
+                   // echo "<br>\r\n 添加错误  insert into ".$dbtable.' set '. implode(',', $sql) ;
+                   echo "<br>\r\n add error ".mysqli_error(self::$mysqli).mysqli_errno(self::$mysqli);
+                }
+            }catch( Exception $e){
+                echo $e->getMessage();
             }
         }else{
             echo '<br> 语句错误  insert into '.$dbtable.' set '. implode(',', $sql) ;
