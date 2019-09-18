@@ -177,7 +177,12 @@ class db{
     private static $mysqli = null;
     
     private function __construct(){
-        echo '<br>construct';
+         self::mysqli_connect();
+    }
+
+    private static function mysqli_connect()
+    {
+        echo '<br>mysqli connect ';
         $dbhost = 'localhost';
         $dbname = 'video';
         $dbuser = 'video';
@@ -190,6 +195,7 @@ class db{
         }
         self::$mysqli->set_charset('UTF-8'); // 设置数据库字符集
         //var_dump(self::$mysqli);die;
+
     }
     
     public static function getInstance(){
@@ -252,6 +258,9 @@ class db{
                    
                    // echo "<br>\r\n 添加错误  insert into ".$dbtable.' set '. implode(',', $sql) ;
                    echo "<br>\r\n add error ".mysqli_error(self::$mysqli).mysqli_errno(self::$mysqli);
+	           if(2006==mysqli_errno(self::$mysqli) ){
+                       self::mysqli_connect();
+                   }
                 }
             }catch( Exception $e){
                 echo $e->getMessage();
@@ -261,6 +270,11 @@ class db{
             return false;
         }
         
+    }
+
+    public function close()
+    {
+        mysqli_close( self::$myqli );
     }
     
 }
