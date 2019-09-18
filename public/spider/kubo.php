@@ -40,7 +40,7 @@ function geturl($url,$ttl=86400)
         return $ql->get( $url, $query,
             [
                 'headers'=>$referer_list,
-                'cache' => 'D:/html/cache',
+                'cache' => 'cache',
                 'cache_ttl' => $ttl ,
             ] 
         )->getHtml();
