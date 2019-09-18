@@ -146,9 +146,8 @@ class Kubo extends Controller {
         $m = \Db::table($this->dbtable)->where('res_id=' . $res_id)->find();
         if ($m) {
             if ($m['md5'] != $res_md5) {
-                $m->md5 = $res_md5;
-                $m->res = $res;
-                if ($m->save()) {
+                $e = \Db::table($this->dbtable)->where('res_id='.$res_id)->update( ['md5'=>$res_md5,'res'=>$res] );
+                if ($e) {
                     echo '<br>更新成功' . $res_id;
                     return 2;   //更新成功
                 } else {
