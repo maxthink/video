@@ -185,8 +185,8 @@ class db{
 
         self::$mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
         if(self::$mysqli->connect_error){
-                log('connect error:'.$mysqli->connect_errno);
-                die( 'connect error:'.$mysqli->connect_errno);
+                log('connect error:'.self::$mysqli->connect_errno);
+                die( 'connect error:'.self::$mysqli->connect_errno);
         }
         self::$mysqli->set_charset('UTF-8'); // 设置数据库字符集
         //var_dump(self::$mysqli);die;
