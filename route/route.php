@@ -13,7 +13,7 @@ Route::get('think', function () {
     return 'hello,maxthink';
 });
 
-Route::rule('view/:id', 'index/index/view')->pattern(['id' => '\d+'])->name('home_view');
-Route::rule('list_page_:id', 'index/index/index')->pattern(['id' => '\d+'])->name('home_list');
+Route::rule('list_video_:id', 'index/index/index')->pattern(['id' => '\d+'])->name('home_video_list');
+Route::rule('video/:id', 'index/index/video')->pattern(['id' => '\d+'])->name('home_video_view');
 
 return [];
