@@ -177,7 +177,12 @@ class db{
     private static $mysqli = null;
     
     private function __construct(){
-        echo '<br>construct';
+         self::mysqli_connect();
+    }
+
+    private static function mysqli_connect()
+    {
+        echo '<br>mysqli connect ';
         $dbhost = 'localhost';
         $dbname = 'video';
         $dbuser = 'video';
@@ -190,6 +195,7 @@ class db{
         }
         self::$mysqli->set_charset('UTF-8'); // 设置数据库字符集
         //var_dump(self::$mysqli);die;
+
     }
     
     public static function getInstance(){
@@ -258,6 +264,11 @@ class db{
             return false;
         }
         
+    }
+
+    public function close()
+    {
+        mysqli_close( self::$myqli );
     }
     
 }
