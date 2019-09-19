@@ -52,14 +52,14 @@ class Index extends Controller
         {
             $res = Cache::get($cache_name);
             //var_dump( json_decode($res['res_js'],true));
-            $this->assign('res', $res);
+            $this->assign('m', $res);
             return $this->fetch();
         } else {
             $res = Video::get( $video_id )->toArray();
             if($res)
             {
                 Cache::set($cache_name, $res, 86420);
-                $this->assign('res', $res);
+                $this->assign('m', $res);
                 return $this->fetch();
             } else {
                 Cache::set($cache_name, '', 600);
