@@ -9,35 +9,31 @@ namespace app\common\model;
  
 class Video extends Common {
 
-    protected $table = 'h_video';
-    protected $insert = [];
+    protected $table = 'h_res_video';
 
-    const ISLOCK_NO = 0;
-    const ISLOCK_YES = 1;
+    public static function list_home($offset, $limit=20)
+    {
+        $res = self::order('id desc')->limit($offset, $page)->column('name,alise,desc,director,actor,language,showtime,type,area,intro,cover,type','id');
+        $count = self::count();
+        return [$res,$count];
+    }
 
-    static $lock_desc = [
-        self::ISLOCK_NO => '否',
-        self::ISLOCK_YES => '是',
-    ];
-    
-    //
-    public function list_admin( $page=1, $size=15, $where=[], $order=[] ){
-
+    public function list_admin( $page=1, $size=15, $where='1=1', $order=[] ){
+ 
         if(null==$order){
             array_push($order,'id DESC');
         }
 
         if( is_int($page) && $page>0 ){
 
-            $result['data'] =  self::query('select SQL_CALC_FOUND_ROWS `id`,host_id,`title`,`name`,`cover`,`intro`,`lock` from '.$this->table.' where '. implode(' and ',$where).' order by  id desc limit '.($page-1)*$size.','.$size );
+            $result['data'] =  self::query('select SQL_CALC_FOUND_ROWS * from '.$this->table.' where '. implode(' and ',$where).' order by  id desc limit '.($page-1)*$size.','.$size );
             $sum = self::query('select found_rows() as coun ');
         
             $result['count'] = $sum[0]['coun'];
             return $result;
 
         } else {
-
-            return self::query('select SQL_CALC_FOUND_ROWS c.*, u.realname from '.$this->table.' c left join h_user u on c.uid=u.id where '. implode(' and ',$where).' order by c.id desc ' );
+            return self::query('select SQL_CALC_FOUND_ROWS * from '.$this->table.' where '. implode(' and ',$where).' order by id desc ' );
         }
     }
 }
