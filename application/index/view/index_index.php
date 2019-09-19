@@ -48,7 +48,7 @@
                             <a href="{:url('home_video_view',['id'=>$m['id'] ])}" target="_blank" ><cite>{$m.area}</cite></a>
                             <span>{$m.type}</span> 
                             <p class="layui-hide-xs" title=" ">{$m.intro}</p>
-                            <span class="fly-list-nums"> <i class="iconfont icon-yulan1" title="">观看</i> 152</span>
+                            <span class="fly-list-nums"> <i class="iconfont icon-yulan1" title=""></i> 152</span>
                         </div>
                     </li>
                     {/foreach}
