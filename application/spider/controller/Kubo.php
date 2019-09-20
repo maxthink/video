@@ -98,7 +98,7 @@ class Kubo extends Controller {
             }
             foreach ($res as $kk => $vv) {
                 $k = explode('$', $vv);
-                $res[$kk] = ['name' => $k[0], 'res' => $k[1]];
+                $res[$kk] = ['name' => str_replace(['第','集'],'', $k[0]), 'res' => $k[1]];
             }
 
             //print_r($res);break;

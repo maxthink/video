@@ -21,7 +21,6 @@ class Index extends Controller
             $this->assign('res', $res['list']);
             $this->assign('page', $page_html);
             $this->assign('count', $res['count']);
-            return $this->fetch();
         }
         else
         {
@@ -34,11 +33,11 @@ class Index extends Controller
                 $this->assign('res', $res);
                 $this->assign('page', $page_html);
                 $this->assign('count', $count);
-                return $this->fetch();
             }else{
                 Cache::set($cache_name, ['list'=>[],'count'=>$count], 86400);   //没有内容, 缓存写个空的
             }
         }
+        return $this->fetch();
         
     }
 
@@ -53,18 +52,18 @@ class Index extends Controller
             $res = Cache::get($cache_name);
             //var_dump( json_decode($res['res_js'],true));
             $this->assign('m', $res);
-            return $this->fetch();
         } else {
             $res = Video::get( $video_id )->toArray();
             if($res)
             {
                 Cache::set($cache_name, $res, 86420);
                 $this->assign('m', $res);
-                return $this->fetch();
             } else {
                 Cache::set($cache_name, '', 600);
+                $this->assign('m', '');
             }
-        }        
+        } 
+        return $this->fetch('index_video2');
     }
                 
     //获取分页
