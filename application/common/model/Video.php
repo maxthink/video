@@ -13,7 +13,7 @@ class Video extends Common {
 
     public static function list_home($offset, $limit=20)
     {
-        $res = self::order('id desc')->limit($offset, $page)->column('name,alise,desc,director,actor,language,showtime,type,area,intro,cover,type','id');
+        $res = self::order('id desc')->limit($offset, $limit)->column('name,alise,desc,director,actor,language,showtime,type,area,intro,cover,type','id');
         $count = self::count();
         return [$res,$count];
     }
