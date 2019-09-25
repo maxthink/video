@@ -37,7 +37,7 @@ class Index extends Controller
                 Cache::set($cache_name, ['list'=>[],'count'=>$count], 86400);   //没有内容, 缓存写个空的
             }
         }
-        return $this->fetch();
+        return $this->fetch('index_index');
         
     }
 
@@ -45,7 +45,8 @@ class Index extends Controller
     public function video()
     {
         $video_id = input('id',0,'intval');
-       
+        $recommend = $this->recommend($video_id);
+        
         $cache_name = 'home_video_id_'.$video_id;
         if( false !== Cache::get($cache_name) )
         {
@@ -63,7 +64,29 @@ class Index extends Controller
                 $this->assign('m', '');
             }
         } 
-        return $this->fetch('index_video2');
+        $this->assign('recommend', $recommend);
+        return $this->fetch('index_video3');
+    }
+    
+    //推荐
+    private function recommend( &$id )
+    {
+        $cache_name = 'home_video_recommend_'.$id;  //详情页推荐
+        
+        if(  Cache::has($cache_name) )
+        {
+            return Cache::get($cache_name);
+        }
+        else
+        {
+            $res = Video::recomend();
+            if( $res ){
+                Cache::set($cache_name, $res, 86400);
+                return $res;
+            }else{
+                Cache::set($cache_name, [], 86400);   //没有内容, 缓存写个空的
+            }
+        }
     }
                 
     //获取分页
@@ -106,7 +129,7 @@ class Index extends Controller
             if($start==$page_curr){
                 $page_html .= '<span class="laypage-curr">'.$start.'</span>';
             }else{
-                $page_html .= '<a herf="'.url('home_video_list',['id'=>$start] ).'" >'.$start.'</a>';
+                $page_html .= '<a href="'.url('home_video_list',['id'=>$start] ).'" >'.$start.'</a>';
             }
             
         }

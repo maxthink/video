@@ -17,6 +17,11 @@ class Video extends Common {
         $count = self::count();
         return [$res,$count];
     }
+    
+    public static function recomend()
+    {
+        return self::order('id desc')->limit(30)->column('name,desc,cover','id');
+    }
 
     public function list_admin( $page=1, $size=15, $where='1=1', $order=[] ){
  
