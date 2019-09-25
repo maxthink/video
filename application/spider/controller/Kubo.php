@@ -1,4 +1,9 @@
 <?php
+/**
+ * kubo 资源采集
+ * 
+ * 1.0 2019/9/25 采集完成
+ */
 
 namespace app\spider\controller;
 
@@ -7,7 +12,7 @@ use QL\QueryList;
 
 class Kubo extends Controller {
 
-    public $dbtable = 'h_res_kubo_video';
+    public $dbtable = 'h_res_video';
     public $ql = null;
     public $domain = 'http://www.kubozy.net';
     public $res_from = 'kubo';
@@ -20,10 +25,11 @@ class Kubo extends Controller {
         error_reporting(E_ALL);
         ini_set('memory_limit', '128M');
 
-        //todo3 list 列表页
+        //todo1  列表页首页
         $html = $this->geturl('/?m=vod-type-id-2.html');
         $page_lists = $this->ql->html($html)->find('.pagelink_b')->attrs('href')->all();
-
+        
+        //todo2 得到所有列表页
         for ($i = 1; $i < count($page_lists); $i++) { //动态count, pagelist会增加
             //echo '<br>1 pagelists geting : '.memory_get_usage();
             $html = $this->geturl($page_lists[$i]);
@@ -46,10 +52,10 @@ class Kubo extends Controller {
 
         $page_lists = array_unique($page_lists);
         natsort($page_lists);
-//shuffle($page_lists);
+        //shuffle($page_lists);
         print_r($page_lists);
 
-//todo4 detail-page 单个详情: 从列表页获取单个数据
+        //todo3 detail-page 单个详情: 从列表页获取单个数据
         $detail = [];
         $range = '.xing_vb4'; //列表里获取单个元素
         $rule = [
@@ -57,7 +63,7 @@ class Kubo extends Controller {
         ];
         $ii = 1;
         foreach ($page_lists as $list_url) {
-            echo '<br/>2 page_list get detail, memory use: ' . $list_url . ' __' . memory_get_usage();
+            //echo '<br/>2 page_list get detail, memory use: ' . $list_url . ' __' . memory_get_usage();
             $html = $this->geturl($list_url);
             if (false == $html)
                 continue;
@@ -68,11 +74,10 @@ class Kubo extends Controller {
             }
             $this->insertdb($detail);
             $detail = [];
-            //break;
-            echo '<br/>2 page_list get detail, memory use end : ' . memory_get_usage();
+
+            //echo '<br/>2 page_list get detail, memory use end : ' . memory_get_usage();
             $ii++;
-            if ($ii > 50)
-                break;
+            //if ($ii > 10) break;
         }
     }
 
