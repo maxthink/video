@@ -16,4 +16,6 @@ Route::get('think', function () {
 Route::rule('list_video_:id', 'index/index/index')->pattern(['id' => '\d+'])->name('home_video_list');
 Route::rule('video/:id', 'index/index/video')->pattern(['id' => '\d+'])->name('home_video_view');
 
+Route::rule('app_list_video_:id', 'app/index/index')->pattern(['id' => '\d+'])->name('app_video_list');
+Route::rule('app_video/:id', 'app/index/video')->pattern(['id' => '\d+'])->name('app_video_view');
 return [];
