@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="keywords" content="电影天堂_电影下载">
 <meta name="description" content="电影天堂_最新电影_高清电影_在线观看_在线视频_在线看电影">
-<link rel="stylesheet" href="/static/index/style3.css">
+<link rel="stylesheet" href="/static/app/style.css">
 </head>
 <body>
 

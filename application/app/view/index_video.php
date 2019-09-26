@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="keywords" content="电影天堂_电影下载">
 <meta name="description" content="电影天堂_最新电影_高清电影_在线观看_在线视频_在线看电影">
-<link rel="stylesheet" href="/static/index/style3.css">
+<link rel="stylesheet" href="/static/app/style.css">
 </head>
 <body>
 
@@ -57,11 +57,11 @@
 </div>
 
 <div class="footer">
-    <p><a href="http://fly.layui.com/" target="_blank">Fly社区</a> 2017 &copy; <a href="http://www.layui.com/" target="_blank">layui.com 出品</a></p>
+    <p><a href="/" target="_blank">Fly社区</a> 2017 &copy; <a href="http://www.layui.com/" target="_blank">layui.com 出品</a></p>
     <p>
-        <a href="http://fly.layui.com/jie/3147/" target="_blank">付费计划</a>
-        <a href="http://www.layui.com/template/fly/" target="_blank">获取Fly社区模版</a>
-        <a href="http://fly.layui.com/jie/2461/" target="_blank">微信公众号</a>
+        <a href="/" target="_blank">付费计划</a>
+        <a href="/" target="_blank">获取Fly社区模版</a>
+        <a href="/" target="_blank">微信公众号</a>
     </p>
 </div>
 
@@ -94,7 +94,7 @@
         hls.loadSource( $('#play_list>span:eq('+playOrder+')>a').attr('data') );
         hls.attachMedia(video);
         hls.on(Hls.Events.MANIFEST_PARSED,function() {
-            //video.play();
+            video.play();
             playOrder++;
         });
         hls.on(Hls.Events.ENDED,function() {
@@ -129,5 +129,4 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-
 </html>
