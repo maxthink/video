@@ -28,8 +28,8 @@
         <ul>
             {foreach $res as $k=>$m }
             <li>
-                <a class="list-cover" href="{:url('home_video_view',['id'=>$m['id'] ])}" target="_blank" > <img src="{$m.cover}" alt="{$m.name}{$m.desc}"> </a>
-                <h2><a class="list-title"  href="{:url('home_video_view',['id'=>$m['id'] ])}" >{$m.name} {$m.desc} {$m.alise}</a> </h2>
+                <a class="list-cover" href="{:url('app_video_view',['id'=>$m['id'] ])}" target="_blank" > <img src="{$m.cover}" alt="{$m.name}{$m.desc}"> </a>
+                <h2><a class="list-title"  href="{:url('app_video_view',['id'=>$m['id'] ])}" >{$m.name} {$m.desc} {$m.alise}</a> </h2>
                 <div class="list-info">
                     <span>{$m.area}</span>
                     <span>{$m.type}</span> 
@@ -83,4 +83,14 @@
     </p>
 </div>
 </body>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?e43e868097a2cd0a997a29227736415c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
 </html>
