@@ -26,7 +26,7 @@
 <div class="main">
     <div class="container">
         <div class="video-left">
-            <video id='my-video' class="video-intance" muted="muted" controls preload='auto' poster='/static/index/pin.jpg'  data-setup='{}'>
+            <video id='my-video' class="video-intance" muted="muted" controls preload='auto' poster='/static/index/pin.jpg' x-webkit-airplay="allow" x5-playsinline="" playsinline="" webkit-playsinline="" data-setup='{}'>
                 <p> 请开启Javascript脚本以便 支持HTML5 video播放器 </p>
             </video>
             <div class="video-info">
@@ -73,7 +73,7 @@
     //var videos = JSON.parse(video);
     var playlist = '';
     $.each(video, function(key, val){
-        playlist += '<span><a class="playres" data="'+val.res+'" >'+3+"</a></span>";
+        playlist += '<span><a class="playres" data="'+val.res+'" >'+val.name+"</a></span>";
     }) 
     $("#play_list").html(playlist);
     
@@ -104,6 +104,14 @@
             }else{
                 //todo 下一个影片
             }
+        });
+        hls.on(Hls.Events.PAUSED,function() {
+            console.log('paused');
+            video.hide();
+        });
+        hls.on(Hls.Events.STOPPED,function() {
+            console.log('STOPPED');
+            video.hide();
         });
     }else{
         //浏览器不支持hls协议

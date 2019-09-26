@@ -1,6 +1,6 @@
 <?php
 
-namespace app\app\controller;
+namespace app\index\controller;
 
 use think\Controller;
 use think\facade\Cache;
@@ -10,6 +10,7 @@ class Index extends Controller
 {
     public function index()
     {
+        return '';
         $current_page = abs( input('id',1,'intval') );
         $cache_name = 'home_video_page_'.$current_page;
         $limit = 20;
@@ -64,7 +65,7 @@ class Index extends Controller
             }
         } 
         $this->assign('recommend', $recommend);
-        return $this->fetch('index_video');
+        return $this->fetch('index_video3');
     }
     
     //推荐
